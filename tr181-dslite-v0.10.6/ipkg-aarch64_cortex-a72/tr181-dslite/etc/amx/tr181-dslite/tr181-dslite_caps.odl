@@ -1,0 +1,5 @@
+%config {
+    %global privileges = {
+        user = "tr181_app", group = "tr181_app", capabilities = ["CAP_NET_ADMIN", "CAP_DAC_OVERRIDE"]
+    };
+}

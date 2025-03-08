@@ -1,0 +1,13 @@
+%config {
+    import-dirs = [
+         ".",
+         "/usr/lib/amx/modules"
+    ];
+
+    include-dirs = [
+        ".",
+        "../../odl"
+    ];
+}
+
+include "../../odl/tr181-dslite_definition.odl";

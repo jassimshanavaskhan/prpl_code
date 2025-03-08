@@ -1,0 +1,5 @@
+output/*
+**/run_test
+openwrt/
+*/output
+odl/tr181-dslite_caps.odl

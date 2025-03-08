@@ -1,0 +1,52 @@
+#include "mod_sahtrace.odl";
+#include "mod_apparmor.odl";
+#include "global_amxb_timeouts.odl";
+
+%config {
+    name = "tr181-dslite";
+    // main files
+    definition_file = "${name}_definition.odl";
+    sahtrace = {
+        type = "syslog",
+        level = "${default_log_level}"
+    };
+    trace-zones = {"main" = "${default_trace_zone_level}", "dslite-event" = "${default_trace_zone_level}", "controller" = "${default_trace_zone_level}", "interface" = "${default_trace_zone_level}", "utils" = "${default_trace_zone_level}", "dslite-ares" = "${default_trace_zone_level}", "dslite-netmodel" = "${default_trace_zone_level}", "fwl" = "${default_trace_zone_level}"};
+    storage-path = "${rw_data_path}/${name}/";
+    %global odl = {
+        dm-save = true,
+        dm-save-on-changed = true,
+        dm-save-delay = 1000,
+        dm-defaults = "dslite_defaults/",
+        directory = "${storage-path}/odl"
+    };
+   
+    mod-dir = "${prefix}/usr/lib/amx/${name}/modules";
+    sys-mod-dir = "${prefix}/usr/lib/amx/modules";
+    import-dirs = [
+        ".",
+        "${prefix}${plugin-dir}/${name}",
+        "${prefix}${plugin-dir}/modules",
+        "${prefix}/usr/lib/amx/${name}",
+        "${prefix}/usr/lib/amx/modules"
+    ];
+
+    NetModel = "nm_dslite";
+    //section for dslite Instances
+    nm_dslite = {
+        InstancePath = "DSLite.InterfaceSetting.",
+        Tags = "dslite netdev",
+        Prefix = "dslite-"
+    };
+}
+requires "NetModel.";
+requires "Users.User.";
+
+import "${name}.so" as "${name}";
+import "mod-netmodel.so" as "mod_nm";
+include "${definition_file}";
+#include "${name}_caps.odl";
+
+%define {
+    entry-point tr181-dslite.dslite_main;
+    entry-point mod_nm.mod_netmodel_main;
+}

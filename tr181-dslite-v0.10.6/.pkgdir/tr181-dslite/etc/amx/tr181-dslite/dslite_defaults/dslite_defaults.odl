@@ -1,0 +1,6 @@
+%populate {
+    object DSLite {
+        parameter Enable = false;
+        parameter InterfaceSettingNumberOfEntries = 0;
+    }
+}

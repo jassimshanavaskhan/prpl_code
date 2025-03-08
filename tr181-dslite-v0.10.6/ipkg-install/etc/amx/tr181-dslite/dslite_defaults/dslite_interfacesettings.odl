@@ -1,0 +1,12 @@
+%populate {
+    object DSLite.InterfaceSetting {
+        instance add("dslite0") {
+            parameter Enable = true;
+            parameter EndpointAssignmentPrecedence = "DHCPv6";
+            parameter EndpointAddressTypePrecedence = "IPv6Address";
+            parameter EndpointName = "";
+            parameter EndpointAddress = "";
+            parameter Origin = "DHCPv6";
+        }
+    }
+}

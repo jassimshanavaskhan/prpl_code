@@ -1,0 +1,13 @@
+{
+	"user": "tr181_app",
+	"publish": [ "IP*", "DSLite*"],
+	"access": {
+		"IP*": {
+			"methods": [ "*" ]
+		},
+		"DSLite*": {
+			"methods": [ "*" ]
+		}
+	},
+	"subscribe": [ "IP*", "DSLite*"]
+}

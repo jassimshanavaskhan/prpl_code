@@ -1,0 +1,13 @@
+Package: tr181-dslite
+Version: v0.10.6-1
+Depends: libc, libamxc, libamxp, libamxd, libamxo, libamxm, libamxb, libsahtrace, amxrt, mod-netmodel, libnetmodel, libcares, kmod-ip6-tunnel, kmod-iptunnel6
+Source: feeds/feed_net_core/plugins/tr181-dslite
+SourceName: tr181-dslite
+License: BSD-2-Clause-Patent
+LicenseFiles: LICENSE
+Section: opt
+SourceDateEpoch: 1727275371
+Maintainer: Soft At Home <support.opensource@softathome.com>
+Architecture: aarch64_cortex-a72
+Installed-Size: 25754
+Description:  TR-181 compatible DSLite plugin

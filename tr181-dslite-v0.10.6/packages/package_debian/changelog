@@ -1,0 +1,258 @@
+tr181-dslite (0.10.6) unstable; urgency=medium
+
+  * - [USP][CDRouter][Random] Some datamodel path are missing in USP hl-api tests
+  * - [USP][CDRouter][Random] Some datamodel path are missing in USP hl-api tests
+
+ -- SAH bot <sahbot@softathome.com>  Wed, 25 Sep 2024 12:53:54 +0000
+
+tr181-dslite (0.10.5) unstable; urgency=medium
+
+  * [AppArmor] Create AppAmor profile for plugins
+
+ -- SAH bot <sahbot@softathome.com>  Tue, 10 Sep 2024 07:16:16 +0000
+
+tr181-dslite (0.10.4) unstable; urgency=medium
+
+  * Better shutdown script
+
+ -- SAH bot <sahbot@softathome.com>  Tue, 23 Jul 2024 07:50:26 +0000
+
+tr181-dslite (0.10.3) unstable; urgency=medium
+
+
+ -- SAH bot <sahbot@softathome.com>  Mon, 08 Jul 2024 06:58:24 +0000
+
+tr181-dslite (0.10.2) unstable; urgency=medium
+
+  * amx plugin should not run as root user
+
+ -- SAH bot <sahbot@softathome.com>  Thu, 27 Jun 2024 16:49:23 +0000
+
+tr181-dslite (0.10.1) unstable; urgency=medium
+
+  * Make amxb timeouts configurable
+
+ -- SAH bot <sahbot@softathome.com>  Wed, 10 Apr 2024 07:07:44 +0000
+
+tr181-dslite (0.10.0) unstable; urgency=medium
+
+  * Add tr181-device proxy odl files to components
+
+ -- SAH bot <sahbot@softathome.com>  Mon, 05 Feb 2024 16:22:02 +0000
+
+tr181-dslite (0.9.0) unstable; urgency=medium
+
+  * Add tr181-device proxy odl files to components
+
+ -- SAH bot <sahbot@softathome.com>  Wed, 17 Jan 2024 09:33:37 +0000
+
+tr181-dslite (0.8.2) unstable; urgency=medium
+
+  * NetDev MIB takes very long to synchronize when dslite0 interface comes up
+
+ -- SAH bot <sahbot@softathome.com>  Mon, 23 Oct 2023 09:43:44 +0000
+
+tr181-dslite (0.8.1) unstable; urgency=medium
+
+  *  All applications using sahtrace logs should use default log levels
+
+ -- SAH bot <sahbot@softathome.com>  Fri, 13 Oct 2023 14:13:17 +0000
+
+tr181-dslite (0.8.0) unstable; urgency=medium
+
+  * [DSLITE][MSS] Adapt MSS for the dslite traffic depending on the MTU of the underlying interface.
+
+ -- SAH bot <sahbot@softathome.com>  Thu, 12 Oct 2023 11:27:22 +0000
+
+tr181-dslite (0.7.0) unstable; urgency=medium
+
+  * [amxrt][no-root-user][capability drop] All amx plugins must be adapted to run as non-root and lmited capabilities
+
+ -- SAH bot <sahbot@softathome.com>  Wed, 11 Oct 2023 12:37:06 +0000
+
+tr181-dslite (0.6.6) unstable; urgency=medium
+
+  * [OJO][Nokia]Website navigation does not behave normally for LAN and wlan Devices
+
+ -- SAH bot <sahbot@softathome.com>  Fri, 22 Sep 2023 16:20:42 +0000
+
+tr181-dslite (0.6.5) unstable; urgency=medium
+
+  * Init script has no shutdown function
+
+ -- SAH bot <sahbot@softathome.com>  Mon, 03 Jul 2023 12:43:12 +0000
+
+tr181-dslite (0.6.4) unstable; urgency=medium
+
+  * Missing Device prefix in Tunnel(ed)Interface parameters
+
+ -- SAH bot <sahbot@softathome.com>  Thu, 15 Jun 2023 10:28:08 +0000
+
+tr181-dslite (0.6.3) unstable; urgency=medium
+
+  * [prplOS-next][tr181-dslite] tr181-dslite crashes
+
+ -- SAH bot <sahbot@softathome.com>  Thu, 18 May 2023 05:36:26 +0000
+
+tr181-dslite (0.6.2) unstable; urgency=medium
+
+  * [Coverage] Remove SAHTRACE defines in order to increase branching coverage
+
+ -- SAH bot <sahbot@softathome.com>  Thu, 11 May 2023 09:18:03 +0000
+
+tr181-dslite (0.6.1) unstable; urgency=medium
+
+  * tr181-dslite.sh: fix not starting service
+
+ -- SAH bot <sahbot@softathome.com>  Thu, 27 Apr 2023 06:21:13 +0000
+
+tr181-dslite (0.6.0) unstable; urgency=medium
+
+  * Use sah_lib_c-ares instead of opensource_c-ares
+
+ -- SAH bot <sahbot@softathome.com>  Thu, 23 Mar 2023 15:23:10 +0000
+
+tr181-dslite (0.5.9) unstable; urgency=medium
+
+  * [Config] enable configurable coredump generation
+
+ -- SAH bot <sahbot@softathome.com>  Thu, 09 Mar 2023 09:16:12 +0000
+
+tr181-dslite (0.5.8) unstable; urgency=medium
+
+  * Fix c-ares usage in DSLite
+
+ -- SAH bot <sahbot@softathome.com>  Mon, 06 Mar 2023 09:54:09 +0000
+
+tr181-dslite (0.5.7) unstable; urgency=medium
+
+  * [dslite] EndpointName is not always persistent and writable when EndpointAssignmentPrecedence is Static
+
+ -- SAH bot <sahbot@softathome.com>  Sat, 18 Feb 2023 07:27:23 +0000
+
+tr181-dslite (0.5.6) unstable; urgency=medium
+
+  * EndpointName not always modifiable when EndpointAssignmentPrecedence is Static
+
+ -- SAH bot <sahbot@softathome.com>  Thu, 02 Feb 2023 15:10:11 +0000
+
+tr181-dslite (0.5.5) unstable; urgency=medium
+
+  * Fix origin field in DSLite data model
+
+ -- SAH bot <sahbot@softathome.com>  Thu, 26 Jan 2023 07:55:54 +0000
+
+tr181-dslite (0.5.4) unstable; urgency=medium
+
+  * Remove dslite0 interface when DSLite.InterfaceSetting.1.Status == Error
+
+ -- SAH bot <sahbot@softathome.com>  Tue, 24 Jan 2023 09:53:30 +0000
+
+tr181-dslite (0.5.3) unstable; urgency=medium
+
+  * Bug: dslite doesn't always come up after a reboot
+
+ -- SAH bot <sahbot@softathome.com>  Fri, 20 Jan 2023 13:44:11 +0000
+
+tr181-dslite (0.5.2) unstable; urgency=medium
+
+  * avoidable copies of strings, htables and lists
+
+ -- SAH bot <sahbot@softathome.com>  Tue, 10 Jan 2023 11:45:25 +0000
+
+tr181-dslite (0.5.1) unstable; urgency=medium
+
+  * event handler filter uses regexp on string literal
+
+ -- SAH bot <sahbot@softathome.com>  Mon, 09 Jan 2023 09:36:34 +0000
+
+tr181-dslite (0.5.0) unstable; urgency=medium
+
+  * Go from 2 to 1 default InterfaceSetting instances in DSLite
+
+ -- SAH bot <sahbot@softathome.com>  Mon, 19 Dec 2022 16:25:43 +0000
+
+tr181-dslite (0.4.6) unstable; urgency=medium
+
+  * Correct linking with /opt/prplos
+
+ -- SAH bot <sahbot@softathome.com>  Tue, 13 Dec 2022 13:27:16 +0000
+
+tr181-dslite (0.4.5) unstable; urgency=medium
+
+  * Add runtime dependencies "kmod-ip6-tunnel" and "kmod-iptunnel6"
+
+ -- SAH bot <sahbot@softathome.com>  Sun, 11 Dec 2022 14:47:44 +0000
+
+tr181-dslite (0.4.4) unstable; urgency=medium
+
+  * [Config] coredump generation should be configurable
+
+ -- SAH bot <sahbot@softathome.com>  Fri, 09 Dec 2022 09:40:36 +0000
+
+tr181-dslite (0.4.3) unstable; urgency=medium
+
+  * Fix issue with Enable parameters
+
+ -- SAH bot <sahbot@softathome.com>  Tue, 06 Dec 2022 16:35:05 +0000
+
+tr181-dslite (0.4.2) unstable; urgency=medium
+
+  * Add config option to link with c-ares under /opt/prplos
+
+ -- SAH bot <sahbot@softathome.com>  Wed, 30 Nov 2022 15:39:43 +0000
+
+tr181-dslite (0.4.1) unstable; urgency=medium
+
+  * Cleanup administrative issues
+
+ -- SAH bot <sahbot@softathome.com>  Thu, 24 Nov 2022 14:15:43 +0000
+
+tr181-dslite (0.4.0) unstable; urgency=medium
+
+  * Configure dslite0 network interface
+
+ -- SAH bot <sahbot@softathome.com>  Wed, 23 Nov 2022 09:38:17 +0000
+
+tr181-dslite (0.3.2) unstable; urgency=medium
+
+  * Enable auto opensource
+
+ -- SAH bot <sahbot@softathome.com>  Tue, 22 Nov 2022 12:58:34 +0000
+
+tr181-dslite (0.3.1) unstable; urgency=medium
+
+  * Opensource component
+
+ -- SAH bot <sahbot@softathome.com>  Tue, 22 Nov 2022 12:50:35 +0000
+
+tr181-dslite (0.3.0) unstable; urgency=medium
+
+  * DSLite async DNS resolving
+
+ -- SAH bot <sahbot@softathome.com>  Thu, 10 Nov 2022 12:26:22 +0000
+
+tr181-dslite (0.2.0) unstable; urgency=medium
+
+  * DSLite Initial working plugin
+
+ -- SAH bot <sahbot@softathome.com>  Thu, 20 Oct 2022 15:00:07 +0000
+
+tr181-dslite (0.1.1) unstable; urgency=medium
+
+  * Implement TR181 compatible DSLite plugin
+
+ -- SAH bot <sahbot@softathome.com>  Tue, 11 Oct 2022 09:30:34 +0000
+
+tr181-dslite (0.1.0) unstable; urgency=medium
+
+  * Implement TR181 compatible DSLite plugin.
+  * Remove pedantic flag
+
+ -- SAH bot <sahbot@softathome.com>  Thu, 22 Sep 2022 07:20:35 +0000
+
+tr181-dslite (0.0.0) unstable; urgency=medium
+
+  * Initial version
+
+ -- Bert Goemans <bert.goemans_ext@softathome.com>  mon, 12 Sep 2022 15:37:00 +0000

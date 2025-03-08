@@ -1,0 +1,240 @@
+%define {
+    /**
+    * Settings allowing a CPE to configure and route IPv6 Dual-Stack Lite (DSLite) as specified in [DSLite]. 
+    * The DS-Lite mechanism is intended to be implemented only on gateway devices that support IPv4 on the LAN side and only have IPv6 connectivity on the WAN side.
+    * See the Dual-Stack Lite Theory of Operation [Appendix VII/TR-181i2a2] for a description of the working of this DS-Lite data model.
+    * @version 1.0
+    */
+    %persistent object DSLite {
+
+        /**
+        * Enables or disables DSLite.
+        * @version 1.0
+        **/
+        %persistent bool Enable = false;
+
+        /**
+         * Comma-separated list of modules that can be configured in FWController.
+         *
+         * @version 1.0
+         */
+        %protected %read-only csv_string SupportedFWControllers = "mod-fw-amx";
+
+        /**
+        * Only modules that are added to this comma separated list can be configured
+        * in the Controller parameters.
+        * The name used should be the name of the so file without the extension.
+        *
+        * @version 1.0
+        */
+        %read-only %protected csv_string SupportedControllers = "mod-dslite-ioctl";
+
+        /**
+         * This module will be loaded. Must be listed in SupportedFWControllers.
+         *
+         * @version 1.0
+         */
+        %persistent %protected string FWController = "mod-fw-amx" {
+            on action validate call check_is_in "DSLite.SupportedFWControllers";
+        }
+
+        /**
+         * Defines the default Controller
+         * This is the controller that is used to configure the DSLite interface tunnel
+         *
+         * @version 1.0
+         */
+        %persistent %protected string DefaultController = "mod-dslite-ioctl";
+
+        /**
+        * Configures the module that should be used to apply this DSLite interface configuration.
+        * Can only be one of the supported controllers configured in DSLite.SupportedControllers
+        *
+        * @version 1.0
+        */
+        %persistent %protected string Controller = "mod-dslite-ioctl" {
+            on action validate call check_is_in "DSLite.SupportedControllers";
+        }
+      
+        /**
+        * DSLite settings.
+        * At most one entry in this table can exist with a given value for Alias.
+        * @version 1.0
+        **/
+        %persistent object InterfaceSetting[] {
+
+            /**
+            * The number of entries in the InterfaceSetting table.
+            * @version 1.0
+            * type: unsignedInt
+            **/
+            counted with InterfaceSettingNumberOfEntries;
+
+            /**
+            * Enables or disables this InterfaceSetting instance.
+            * @version 1.0
+            **/
+            %persistent bool Enable;
+            
+            /**
+            * The status of this entry. Enumeration of:
+            *   Disabled
+            *   Enabled
+            *   Error (OPTIONAL) 
+            * The Error value MAY be used by the CPE to indicate a locally defined error condition.
+            * @version 1.0
+            **/
+            %read-only string Status {
+                default "Disabled";
+                on action validate call check_enum
+                    ["Disabled", "Enabled", "Error"];
+            }
+                      
+            /**
+            * [Alias] A non-volatile handle used to reference this instance. Alias provides a mechanism for an ACS to label this instance for future reference.
+            * If the CPE supports the Alias-based Addressing feature as defined in [Section 3.6.1/TR-069] and described in [Appendix II/TR-069], 
+            * the following mandatory constraints MUST be enforced:
+            *   Its value MUST NOT be empty.
+            *   Its value MUST start with a letter.
+            *   If its value is not assigned by the ACS, it MUST start with a "cpe-" prefix.
+            *   The CPE MUST NOT change the parameter value.
+            * @version 1.0
+            **/ 
+            %unique %key %persistent string Alias {
+                on action validate call check_maximum 64;
+            }
+
+            /**
+            * Indicates the preferred method to be used in assigning values to EndpointName when both static and dynamic values are available. 
+            * See EndpointName for further clarification. Enumeration of:
+            *   DHCPv6
+            *   Static 
+            * The factory default value MUST be DHCPv6.
+            * @version 1.0
+            **/
+            %persistent string EndpointAssignmentPrecedence = "DHCPv6" {
+                on action validate call check_enum
+                    ["DHCPv6", "Static"];
+            }
+
+            /**
+            * Indicates the preferred method to be used to assign the address of the DS-Lite Endpoint when both EndpointName and EndpointAddress values are available and the Static method is used. 
+            * See EndpointName and EndpointAddress for further clarification. Enumeration of:
+            *   FQDN (Derive from EndpointName via a DNS lookup)
+            *   IPv6Address (Use EndpointAddress directly)
+            * @version 1.0
+            **/ 
+            %persistent string EndpointAddressTypePrecedence = "IPv6Address" {
+                on action validate call check_enum
+                    ["FQDN", "IPv6Address"];
+            }
+
+            /**
+            * [IPv6Address] Indicates the address currently in use for the tunnel concentrator (remote endpoint). 
+            * It is derived from the values of the EndpointAssignmentPrecedence, EndpointAddressTypePrecedence, EndpointName and EndpointAddress parameters.
+            * It is an empty string if no endpoint address is currently known.
+            * @version 1.0
+            **/
+            %read-only string EndpointAddressInUse = "" {
+                on action validate call check_maximum 45;
+            }
+
+            /**
+            * The Fully Qualified Domain Name (FQDN) of the tunnel concentrator (remote endpoint).
+            * This parameter is based on OPTION_DS_LITE_NAME from [Section 4/DSLite-options] and can be assigned statically (e.g. present in the factory default configuration or set by the ACS) or can be updated dynamically (via DHCPv6). 
+            * If both statically and dynamically assigned, then EndpointAssignmentPrecedence indicates whether it is the static configuration or the DHCPv6 configuration that is actually applied to EndpointName.
+            * Note: EndpointName is only writable when EndpointAssignmentPrecedence is Static; otherwise, EndpointName is automatically configured via the DHCPv6 received option.
+            * @version 1.0
+            **/
+            %read-only string EndpointName {
+                on action validate call check_maximum 256;
+            }
+
+            /**
+            * [IPv6Address] The address of the tunnel concentrator (remote endpoint).
+            * This parameter can only be assigned statically (e.g. present in the factory default configuration or set by the ACS).
+            * @version 1.0
+            **/
+            %persistent string EndpointAddress {
+                on action validate call check_maximum 45;
+            }
+
+            /**
+            * Method used to assign EndpointAddressInUse. Enumeration of:
+            *   DHCPv6 (Assigned by DHCPv6 [RFC3315])
+            *   Static (For example, present in the factory default configuration, set by the ACS, or set by some other management entity (e.g. via a GUI)) 
+            * @version 1.0
+            **/
+            %read-only string Origin = "DHCPv6" {
+                on action validate call check_is_empty_or_enum
+                    ["DHCPv6", "Static"];
+            }
+
+            /**
+            * The value MUST be the Path Name of a row in the IP.Interface table. If the referenced object is deleted, the parameter value MUST be set to an empty string. 
+            * This is an IP interface of Type Tunnel that is logically the tunnel entry point for upstream IPv4 traffic and is also logically the tunnel exit point for downstream IPv4 traffic 
+            * (i.e. the entry point for non-tunneled upstream IPv4 traffic to enter a tunnel and become tunneled, or conversely, the exit point for downstream IPv4 traffic leaving a tunnel after being un-tunneled).
+            * IPv4 traffic that enters TunnelInterface is expected to continue on through TunneledInterface from the LAN, and traffic from the WAN is expected to come from TunneledInterface into TunnelInterface. 
+            * TunnelInterface is a logical interface that can allow for classification, marking (of IPv4 headers), and policing of IPv4 traffic that will be going over a DS-Lite tunnel. These functions are modeled in the Device.QoS object.
+            * Note: In DS-Lite, IPv4 packets arriving over one or more device LAN IP interfaces are logically fed into this TunnelInterface. Likewise, DS-Lite traffic from the WAN gets logically sent from this TunnelInterface to LAN IP interfaces.
+            * @version 1.0
+            **/
+            %read-only string TunnelInterface = "Device.IP.Interface.7." {
+                on action validate call check_maximum 256;
+            }
+
+            /**
+            * The value MUST be the Path Name of a row in the IP.Interface table. If the referenced object is deleted, the parameter value MUST be set to an empty string. 
+            * This is an IP interface of Type Tunneled that provides information about the IPv6 headers used to encapsulate the IPv4 packets.
+            * Encapsulated IPv4 traffic that enters TunneledInterface from the WAN is expected to continue on through TunnelInterface, and traffic from the LAN is expected to come from TunnelInterface into TunneledInterface. 
+            * TunneledInterface is a logical interface that can allow for classification, marking (of IPv6 headers and VLAN tags), and policing of IPv6 packets that encapsulate IPv4 packets in DS-Lite traffic. These functions are modeled in the QoS. object.
+            * Note: In DS-Lite, TunneledInterface traffic originating from the LAN logically feeds into a WAN-side IPv6 capable IP interface that the "DSLite IPv4-in-IPv6 tunnel" goes over. DS-Lite traffic that enters over this IPv6 WAN interface gets logically sent to this TunneledInterface.
+            * @version 1.0
+            **/
+            %read-only string TunneledInterface = "Device.IP.Interface.8." {
+                on action validate call check_maximum 256;
+            }
+
+            /**
+            * Indicates the name of the network interface corresponding to this InterfaceSetting instance.
+            * @version 1.0
+            */
+            %protected %read-only string Name = "dslite0";
+            
+            /**
+            * [IPv6Address] Indicates the address currently in use for the tunnel concentrator (local endpoint). 
+            * @version 1.0
+            **/
+            %protected %read-only string LocalAddress = "";
+
+            /**
+            * This is an IP interface that represents the WAN interface which sends and receives traffic to/from the TunneledInterface. 
+            * @version 1.0
+            **/
+            %protected %persistent string WANInterface = "Device.IP.Interface.2.";
+        }
+    }
+}
+
+%populate {
+    
+    // DSLite interface events
+    on event "dm:instance-added" call interface_added
+        filter 'path matches "DSLite\.InterfaceSetting\.$"';
+    on event "dm:object-changed" call toggle_dslite
+        filter 'path matches "DSLite\.$" && contains("parameters.Enable")';
+    on event "dm:object-changed" call toggle_interface
+        filter 'path matches "DSLite\.InterfaceSetting\.[a-zA-Z0-9]+\.$" && contains("parameters.Enable")';
+    on event "dm:object-changed" call endpoint_address_changed
+        filter 'path matches "DSLite\.InterfaceSetting\.[a-zA-Z0-9]+\.$" && contains("parameters.EndpointAddress")';
+    on event "dm:object-changed" call endpoint_assignment_precedence_changed
+        filter 'path matches "DSLite\.InterfaceSetting\.[a-zA-Z0-9]+\.$" && contains("parameters.EndpointAssignmentPrecedence")';
+    on event "dm:object-changed" call endpoint_name_changed
+        filter 'path matches "DSLite\.InterfaceSetting\.[a-zA-Z0-9]+\.$" && contains("parameters.EndpointName")';
+    on event "dm:object-changed" call endpoint_address_type_precedence_changed
+        filter 'path matches "DSLite\.InterfaceSetting\.[a-zA-Z0-9]+\.$" && contains("parameters.EndpointAddressTypePrecedence")';
+    on event "dm:object-changed" call wan_interface_changed
+        filter 'path matches "DSLite\.InterfaceSetting\.[a-zA-Z0-9]+\.$" && contains("parameters.WANInterface")';
+
+}
+

@@ -1,0 +1,10 @@
+Source: tr181-dslite
+Section: devel
+Priority: optional
+Maintainer: Softathome <support.opensource@softathome.com>
+
+Package: tr181-dslite
+Architecture: amd64
+Depends: ${shlibs:Depends}
+Description: TR-181 compatible DSLite plugin
+ 

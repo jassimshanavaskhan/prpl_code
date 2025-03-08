@@ -1,0 +1,11 @@
+%config {
+    %global odl = {
+        dm-defaults = "dslite_defaults/"
+    };
+    
+    mod-dir = "../common/modules";
+    sys-mod-dir = "../common/modules";
+     
+  
+}
+
